@@ -8,6 +8,7 @@ public class GameTriggers : MonoBehaviour
 
     public Dictionary<string, bool> GameTriggersDict = new Dictionary<string, bool>();
 
+    /*
     public bool BatsTriggered;
 
     public bool HelmetDowngraded;
@@ -15,9 +16,11 @@ public class GameTriggers : MonoBehaviour
     public bool ArmGunDowngraded;
     public bool MissleDowngraded;
     public bool LegsDowngraded;
-    public bool AntiGravBootsDowngraded;
+    public bool AntiGravBootsDowngraded;*/
 
-    private void Start()
+    public GameObject Flashlight;
+
+    private void Awake()
     {
         Instance = this;
         GenerateAllTriggers();
@@ -41,6 +44,20 @@ public class GameTriggers : MonoBehaviour
 
 
         //collectable upgrades
+    }
+
+    void Update()
+    {
+        CheckTriggers();
+    }
+
+    public void CheckTriggers()
+    {
+        bool val = GameTriggersDict["HelmetDowngraded"];
+        val = !val;
+        Debug.Log("Flashlight is " + Flashlight.active.ToString() + ", setting it to " + val);
+        Flashlight.SetActive(val);
+        Debug.Log("Flashlight is now " + Flashlight.active.ToString());
     }
 
 }
