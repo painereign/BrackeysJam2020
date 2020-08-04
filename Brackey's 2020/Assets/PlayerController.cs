@@ -6,11 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; set; }
 
+    public int Health = 100;
+    bool damageImune = false;
+    float immuneTimer = 0.5f;
+    float currentImmuneTime = 0f;
+
+    public bool Falling;
+    public float FallThresh;
+
     public float speed;
     public float jumpForce;
     public float moveInput;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     private bool facingRight = true;
 
@@ -47,6 +55,8 @@ public class PlayerController : MonoBehaviour
     public Animator Anim;
 
     private bool lastFrameOnGround = false;
+
+    public Vector2 LastVelocityChange;
 
     public enum PlayerState
     {
@@ -96,9 +106,36 @@ public class PlayerController : MonoBehaviour
             Anim.SetTrigger("Squish");
         }
 
+        if (lastPos.y > (transform.position.y + FallThresh))
+        {
+            Falling = true;
+        }
+        else
+        {
+            Falling = false;
+        }
+
+
 
         lastPos = transform.position;
         lastFrameOnGround = IsGrounded.OnGround;
+
+        LastVelocityChange = rb.velocity;
+
+        CheckImmune();
+    }
+
+    public void CheckImmune()
+    {
+        if (damageImune)
+        {
+            currentImmuneTime -= Time.deltaTime;
+            if (currentImmuneTime < 0)
+            {
+                currentImmuneTime = immuneTimer;
+                damageImune = false;
+            }
+        }
     }
 
     public void CheckSprint()
@@ -190,6 +227,15 @@ public class PlayerController : MonoBehaviour
         }
         else
             go.GetComponent<Bullet>().FacingRight = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!damageImune)
+        {
+            Health -= damage;
+            damageImune = true;
+        }
     }
 }
 
