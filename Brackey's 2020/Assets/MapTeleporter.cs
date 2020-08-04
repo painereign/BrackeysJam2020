@@ -53,7 +53,7 @@ public class MapTeleporter : MonoBehaviour
                     break;
             }
             NewMap.SetActive(true);
-            MapManager.Instance.CurrentTileMap = PlatformLayer;
+            MapManager.Instance.CurrentTileMap = NewMap.GetComponentInChildren<MapTeleporter>().PlatformLayer;
             CurrentMap.SetActive(false);
         }
     }

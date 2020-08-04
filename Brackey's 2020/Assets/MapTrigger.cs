@@ -54,6 +54,10 @@ public class MapTrigger : MonoBehaviour
         {
             ApplyChanges();
         }
+        else
+        {
+            ApplyAntiChanges();
+        }
     }
 
     void ApplyChanges()
@@ -67,5 +71,17 @@ public class MapTrigger : MonoBehaviour
             GOTriggers.ReferenceObject.SetActive(GOTriggers.EnabledValue);
         }
         Debug.LogWarning("TRIGGERING EVENT");
+    }
+    void ApplyAntiChanges()
+    {
+        /*
+        if (TriggerChanged.TriggerName != "")
+        {
+            GameTriggers.Instance.GameTriggersDict[TriggerChanged.TriggerName] = TriggerChanged.RequiredValue;
+        }*/
+        if (GOTriggers.ReferenceObject != null)
+        {
+            GOTriggers.ReferenceObject.SetActive(!GOTriggers.EnabledValue);
+        }
     }
 }

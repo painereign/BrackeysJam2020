@@ -116,6 +116,9 @@ public class Enemy : MonoBehaviour
                 {
                     hitPos.x = hit.point.x - 0.01f * hit.normal.x;
                     hitPos.y = hit.point.y - 0.01f * hit.normal.y;
+
+                    //hitPos.x = (int)hitPos.x;
+                    //hitPos.y = (int)hitPos.y;
                     //TileBase tb = MapManager.Instance.CurrentTileMap.GetTile(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos));
                     //TileData td;
                     //tb.GetTileData(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos), MapManager.Instance.CurrentTileMap.tilem
