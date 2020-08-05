@@ -11604,7 +11604,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6753239849793307847, guid: ed02e37537969d74595d05857965f1e2, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -11709,7 +11709,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4554036265686141728, guid: 46b6818b6e038124e981d65653b834b6, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8

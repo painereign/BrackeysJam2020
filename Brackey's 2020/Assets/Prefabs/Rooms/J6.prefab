@@ -10686,7 +10686,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6324225735269145497, guid: 81c35ec2ac094954cb57068dc73b25f5, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -10791,7 +10791,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5844087906645770184, guid: 49aceded6010d204d939d27f97db7297, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -10896,7 +10896,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4731999356805963982, guid: 24acf6c618cbdd14591916cfba7212ed, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -11001,7 +11001,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3966319732207374249, guid: 7527972e4e1fd0a4cbbc602094a5b044, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8

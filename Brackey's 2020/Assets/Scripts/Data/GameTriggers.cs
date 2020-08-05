@@ -67,7 +67,18 @@ public class GameTriggers : MonoBehaviour
 
     public void DebugCheck()
     {
+        GameTriggersDict["BatsTriggered"] = BatsTriggered;
+
+
+
         GameTriggersDict["HelmetDowngraded"] = HelmetDowngraded;
+
+        GameTriggersDict["ChestDowngraded"] = ChestDowngraded;
+        GameTriggersDict["ArmGunDowngraded"] = ArmGunDowngraded;
+        GameTriggersDict["ArmGunDowngraded"] = ArmGunDowngraded;
+        GameTriggersDict["MissleDowngraded"] = MissleDowngraded;
+        GameTriggersDict["LegsDowngraded"] = LegsDowngraded;
+        GameTriggersDict["AntiGravBootsDowngraded"] = AntiGravBootsDowngraded;
     }
 
 }

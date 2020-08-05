@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 999954544}
   - component: {fileID: 999954543}
   m_Layer: 0
-  m_Name: MovementModifier (1)
+  m_Name: MovementModifier_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HorizontalMoveAdjustMultiple: 0.5
   PlayerVertHightModPerFrame: -0.02
-  isWater: 0
+  isWater: 1
 --- !u!61 &999954543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 1349786238}
   - component: {fileID: 1349786237}
   m_Layer: 0
-  m_Name: MovementModifier
+  m_Name: MovementModifier_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HorizontalMoveAdjustMultiple: 0.5
   PlayerVertHightModPerFrame: -0.02
-  isWater: 0
+  isWater: 1
 --- !u!61 &1349786237
 BoxCollider2D:
   m_ObjectHideFlags: 0

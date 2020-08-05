@@ -33,7 +33,17 @@ public class MovementAdjuster : MonoBehaviour
         {
             if (PlayerVertHightModPerFrame > 0f) 
                 TextBoxController.Instance.NewTextBox("Hold SHIFT to SPRINT to escape quicksand!", 5f);
-            PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater);
+            if (isWater)
+            {
+                if (GameTriggers.Instance.GameTriggersDict["ChestDowngraded"])
+                    PlayerController.Instance.HeighModPerFrame(1f, isWater);
+                else
+                    PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater);
+            }
+            else
+            {
+                PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater);
+            }
             Debug.Log("colliding!!!!");
             collisionThisFrame = true;
             PlayerController.Instance.HoriMoveAjust(HorizontalMoveAdjustMultiple);
