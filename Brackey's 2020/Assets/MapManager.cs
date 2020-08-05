@@ -12,7 +12,11 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance { get; set; }
     public List<GameObject> AllMaps;
 
+    public List<GameObject> MapPrefabs;
+
     private List<List<GameObject>> SortedMaps = new List<List<GameObject>>();
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +45,7 @@ public class MapManager : MonoBehaviour
             }
         }
         
-
+        /*
         for (int x =0; x < AllMaps.Count; x++)
         {
             int val = LetterToVal(AllMaps[x].name.ToCharArray()[0]);
@@ -51,6 +55,17 @@ public class MapManager : MonoBehaviour
             int.TryParse(AllMaps[x].name.Substring(1, 1), out num);
             //SortedMaps[val][num] = AllMaps[x];
             SortedMaps[num][val] = AllMaps[x];
+        }*/
+
+        for (int x = 0; x < MapPrefabs.Count; x++)
+        {
+            int val = LetterToVal(MapPrefabs[x].name.ToCharArray()[0]);
+            //int num = Int.TruAllMaps[x].name.Substring(1,1);
+            //int num = AllMaps[x].name.ToCharArray()[1];
+            int num = -1;
+            int.TryParse(MapPrefabs[x].name.Substring(1, 1), out num);
+            //SortedMaps[val][num] = AllMaps[x];
+            SortedMaps[num][val] = MapPrefabs[x];
         }
     }
 
@@ -91,11 +106,19 @@ public class MapManager : MonoBehaviour
 
     public void GetActiveTileMap()
     {
+        /*
         for (int x = 0; x < AllMaps.Count; x++)
         {
             if (AllMaps[x].activeInHierarchy)
             {
                 CurrentTileMap = AllMaps[x].GetComponentInChildren<MapTeleporter>().PlatformLayer;
+            }
+        }*/
+        for (int x = 0; x < MapPrefabs.Count; x++)
+        {
+            if (MapPrefabs[x].activeInHierarchy)
+            {
+                CurrentTileMap = MapPrefabs[x].GetComponentInChildren<MapTeleporter>().PlatformLayer;
             }
         }
     }
