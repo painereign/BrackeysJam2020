@@ -58,6 +58,14 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 LastVelocityChange;
 
+    float horMoveAdjustMult = 1f;
+
+    float HeightModPerFrame = 0f;
+
+    bool modIsWater = false;
+
+    public float SandWaterSprintHeightIncrease = 0.1f;
+
     public enum PlayerState
     {
         Normal,
@@ -84,7 +92,28 @@ public class PlayerController : MonoBehaviour
 
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        rb.velocity = new Vector2(moveInput * speed * sprintVal, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed * sprintVal * horMoveAdjustMult, rb.velocity.y);
+
+        if (HeightModPerFrame != 1f)
+        {
+            if (!modIsWater)
+            {
+                IsGrounded.OnGround = true;
+            }
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
+            if (sprintVal == 1f)
+                transform.position = new Vector3(transform.position.x, transform.position.y - HeightModPerFrame);
+            else
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y + SandWaterSprintHeightIncrease);
+            }
+        }
+        else
+        {
+            //IsGrounded.OnGround = false;
+            rb.gravityScale = 1f;
+        }
 
         if (facingRight == false && moveInput > 0)
         {
@@ -148,6 +177,17 @@ public class PlayerController : MonoBehaviour
         {
             sprintVal = 1f;
         }
+    }
+
+    public void HoriMoveAjust(float val)
+    {
+        horMoveAdjustMult = val;
+    }
+
+    public void HeighModPerFrame(float val, bool isWater)
+    {
+        HeightModPerFrame = val;
+        modIsWater = isWater;
     }
 
     void Flip()

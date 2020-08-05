@@ -51,4 +51,12 @@ public class TextBoxController : MonoBehaviour
         Active = true;
         TextBoxHolder.SetActive(true);
     }
+
+    public void NewTextBox(string text, float timer)
+    {
+        TextBoxHolder.GetComponentInChildren<Text>().text = text;
+        minActiveTimer = timer;
+        Active = true;
+        TextBoxHolder.SetActive(true);
+    }
 }
