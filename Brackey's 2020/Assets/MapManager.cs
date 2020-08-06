@@ -119,6 +119,7 @@ public class MapManager : MonoBehaviour
             if (MapPrefabs[x].activeInHierarchy)
             {
                 CurrentTileMap = MapPrefabs[x].GetComponentInChildren<MapTeleporter>().PlatformLayer;
+                CurrentTileMap.gameObject.GetComponent<TilemapRenderer>().sortingLayerID = 1;
             }
         }
     }

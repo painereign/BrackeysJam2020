@@ -52,7 +52,10 @@ public class MapTeleporter : MonoBehaviour
                     PlayerController.Instance.transform.position = new Vector2(NewRightX, PlayerController.Instance.transform.position.y);
                     break;
             }
-            GameObject.Instantiate(NewMap);
+            GameObject go = GameObject.Instantiate(NewMap);
+            go.SetActive(false);
+            go.SetActive(true);
+            PlayerController.Instance.MapChange();
             //NewMap.SetActive(true);
             MapManager.Instance.CurrentTileMap = NewMap.GetComponentInChildren<MapTeleporter>().PlatformLayer;
             GameObject.Destroy(CurrentMap);

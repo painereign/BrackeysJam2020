@@ -12,7 +12,7 @@ public class GoChildrenCheck : MonoBehaviour
     bool checkDone = false;
 
     // Start is called before the first frame update
-    void OnEnable()
+    void Start()
     {
         if (GameTriggers.Instance.GameTriggersDict[Trigger] == Value)
         {
@@ -28,6 +28,6 @@ public class GoChildrenCheck : MonoBehaviour
     private void Update()
     {
         if (!checkDone)
-        { OnEnable(); }
+        { Start(); }
     }
 }

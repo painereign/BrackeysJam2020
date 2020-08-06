@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastPos;
 
     public GameObject Bullet;
+    public GameObject SuperMissile, Missile;
 
     private float heldDownTime = 0f;
     public float timeBetweenHeldShots = 0.5f;
@@ -60,11 +62,15 @@ public class PlayerController : MonoBehaviour
 
     float horMoveAdjustMult = 1f;
 
-    float HeightModPerFrame = 0f;
+    public float HeightModPerFrame = 1f;
 
     bool modIsWater = false;
 
+    bool isfalling = false;
+
     public float SandWaterSprintHeightIncrease = 0.1f;
+
+    public List<GameObject> ToBeDestroyedOnMapChange = new List<GameObject>();
 
     public enum PlayerState
     {
@@ -142,6 +148,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             Falling = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            this.transform.position = Vector3.zero;
         }
 
 
@@ -256,6 +267,11 @@ public class PlayerController : MonoBehaviour
         {
             heldDownTime = 0f;
         }
+
+        if (Input.GetMouseButton(1))
+        {
+            //launch SUPER MISSILE (or normal one)
+        }
     }
 
     public void Shoot()
@@ -267,6 +283,34 @@ public class PlayerController : MonoBehaviour
         }
         else
             go.GetComponent<Bullet>().FacingRight = false;
+
+        ToBeDestroyedOnMapChange.Add(go);
+    }
+
+    public void ShootSuperMissile()
+    {
+        GameObject go = GameObject.Instantiate(SuperMissile, this.transform.position, new Quaternion(), GameController.Instance.TmpObjHolder.transform);
+        if (facingRight)
+        {
+            go.GetComponent<SuperMissile>().FacingRight = true;
+        }
+        else
+            go.GetComponent<SuperMissile>().FacingRight = false;
+
+        ToBeDestroyedOnMapChange.Add(go);
+    }
+
+    public void ShootMissile()
+    {
+        GameObject go = GameObject.Instantiate(SuperMissile, this.transform.position, new Quaternion(), GameController.Instance.TmpObjHolder.transform);
+        if (facingRight)
+        {
+            go.GetComponent<Missile>().FacingRight = true;
+        }
+        else
+            go.GetComponent<Missile>().FacingRight = false;
+
+        ToBeDestroyedOnMapChange.Add(go);
     }
 
     public void TakeDamage(int damage)
@@ -277,6 +321,72 @@ public class PlayerController : MonoBehaviour
             damageImune = true;
         }
     }
+
+    public void MapChange()
+    {
+        for (int x= ToBeDestroyedOnMapChange.Count-1; x >= 0; x--)
+        {
+            if (ToBeDestroyedOnMapChange[x] != null)
+            {
+                GameObject.Destroy(ToBeDestroyedOnMapChange[x]);
+                ToBeDestroyedOnMapChange.RemoveAt(x);
+            }
+        }
+        ResetPlayerAdjusters();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Vector3 hitPos = Vector3.zero;
+        foreach (ContactPoint2D hit in collision.contacts)
+        {
+            if (isJumping && !Falling && !IsGrounded.OnGround)
+            {
+                Vector3Int cell = collision.gameObject.GetComponent<Tilemap>().WorldToCell(new Vector3(hit.point.x, hit.point.y));
+                TileBase tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
+                Debug.Log(tb.name);
+                if (tb != null && tb.name == "environment_Tiles_16")
+                {
+                    collision.gameObject.GetComponent<Tilemap>().SetTile(cell, null);
+                }
+            }
+            else
+            {
+                //Debug.Log("did not check player collision - not jumping");
+            }
+
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Vector3 hitPos = Vector3.zero;
+        foreach (ContactPoint2D hit in collision.contacts)
+        {
+
+            if (isJumping && !Falling && !IsGrounded.OnGround)
+            {
+                Vector3Int cell = collision.gameObject.GetComponent<Tilemap>().WorldToCell(new Vector3(hit.point.x, hit.point.y));
+                TileBase tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
+                //Debug.Log(tb.name);
+                if (tb != null && tb.name == "environment_Tiles_16")
+                {
+                    collision.gameObject.GetComponent<Tilemap>().SetTile(cell, null);
+                }
+            }
+            else
+            {
+                //Debug.Log("did not check player collision - not jumping");
+            }
+        }
+    }
+
+    private void ResetPlayerAdjusters()
+    {
+        horMoveAdjustMult = 1f;
+
+        HeightModPerFrame = 1f;
+}
 }
 
 

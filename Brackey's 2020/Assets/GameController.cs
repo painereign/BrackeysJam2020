@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
 
         for (int x = 0; x < MapManager.Instance.MapPrefabs.Count; x++)
         {
-            if (MapManager.Instance.MapPrefabs[x].name == startingMap)
+            if (MapManager.Instance.MapPrefabs[x].name == startingMap.ToUpper())
             {
                 GameObject.Instantiate(MapManager.Instance.MapPrefabs[x]);
                 break;

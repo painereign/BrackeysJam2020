@@ -11,6 +11,8 @@ public class MovementAdjuster : MonoBehaviour
 
     public bool isWater = false;
 
+    public bool InTrigger = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class MovementAdjuster : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            InTrigger = true;
             if (PlayerVertHightModPerFrame > 0f) 
                 TextBoxController.Instance.NewTextBox("Hold SHIFT to SPRINT to escape quicksand!", 5f);
             if (isWater)
@@ -54,10 +57,12 @@ public class MovementAdjuster : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            InTrigger = false;
             Debug.Log("NOT colliding!!!!");
             collisionThisFrame = false;
             PlayerController.Instance.HoriMoveAjust(1f);
             PlayerController.Instance.HeighModPerFrame(1f, isWater);
         }
     }
+
 }

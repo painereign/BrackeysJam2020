@@ -44,6 +44,9 @@ public class GameTriggers : MonoBehaviour
         GameTriggersDict.Add("LegsDowngraded", false);
         GameTriggersDict.Add("AntiGravBootsDowngraded", false);
 
+       //misc
+        GameTriggersDict.Add("Key", false);
+
 
 
         //collectable upgrades

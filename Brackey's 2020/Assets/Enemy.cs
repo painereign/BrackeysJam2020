@@ -114,21 +114,35 @@ public class Enemy : MonoBehaviour
                 Vector3 hitPos = Vector3.zero;
                 foreach (ContactPoint2D hit in collision.contacts)
                 {
+                   Vector3Int cell =  collision.gameObject.GetComponent<Tilemap>().WorldToCell(new Vector3(hit.point.x, hit.point.y));
+                    TileBase tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
+                    collision.gameObject.GetComponent<Tilemap>().SetTile(cell, null);
+                    tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
+
+
+                    /*
                     hitPos.x = hit.point.x - 0.01f * hit.normal.x;
                     hitPos.y = hit.point.y - 0.01f * hit.normal.y;
 
-                    //hitPos.x = (int)hitPos.x;
-                    //hitPos.y = (int)hitPos.y;
+                    hitPos.x = (int)hitPos.x;
+                    hitPos.y = (int)hitPos.y;
                     //TileBase tb = MapManager.Instance.CurrentTileMap.GetTile(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos));
                     //TileData td;
                     //tb.GetTileData(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos), MapManager.Instance.CurrentTileMap.tilem
                     // MapManager.Instance.CurrentTileMap, out td);
-                    Sprite s = MapManager.Instance.CurrentTileMap.GetSprite(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos));
-                    
+                    Sprite s = collision.gameObject.GetComponent<Tilemap>().GetSprite(collision.gameObject.GetComponent<Tilemap>().WorldToCell(hitPos));
+
+
+                    Vector3Int pPos = collision.gameObject.GetComponent<Tilemap>().WorldToCell(hitPos);
+                    Debug.Log("pPos:" + pPos);
+                    TileBase tb = MapManager.Instance.CurrentTileMap.GetTile(pPos);
+                    MapManager.Instance.CurrentTileMap.SetTile(pPos, null);
+                    TileBase tb2 = MapManager.Instance.CurrentTileMap.GetTile(pPos);
+
                     if (s != null && s.name == "environment_Tiles_16")
                     {
                         MapManager.Instance.CurrentTileMap.SetTile(MapManager.Instance.CurrentTileMap.WorldToCell(hitPos), null);
-                    }
+                    }*/
 
                     GameObject.Destroy(this.gameObject);
                 }
