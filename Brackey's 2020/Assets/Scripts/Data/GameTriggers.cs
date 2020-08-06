@@ -49,6 +49,7 @@ public class GameTriggers : MonoBehaviour
 
 
 
+        Update();
         //collectable upgrades
     }
 

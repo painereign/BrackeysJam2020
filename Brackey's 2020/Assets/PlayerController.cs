@@ -60,9 +60,9 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 LastVelocityChange;
 
-    float horMoveAdjustMult = 1f;
+    public float horMoveAdjustMult = 1f;
 
-    public float HeightModPerFrame = 1f;
+    float HeightModPerFrame = 1f;
 
     bool modIsWater = false;
 
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("STARTING VEL:" + rb.velocity.x);
         CheckSprint();
         OriginalJump();
 
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
             {
                 IsGrounded.OnGround = true;
             }
+            /*
             rb.gravityScale = 0f;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             if (sprintVal == 1f)
@@ -113,7 +115,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y + SandWaterSprintHeightIncrease);
-            }
+            }*/
         }
         else
         {
@@ -152,7 +154,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            this.gameObject.SetActive(false);
             this.transform.position = Vector3.zero;
+            this.gameObject.SetActive(true);
         }
 
 
@@ -163,6 +167,12 @@ public class PlayerController : MonoBehaviour
         LastVelocityChange = rb.velocity;
 
         CheckImmune();
+        //Debug.Log("ENDING VEL:" + rb.velocity.x);
+    }
+
+    private void LateUpdate()
+    {
+        //Debug.Log("LATE X: " + rb.velocity);
     }
 
     public void CheckImmune()
@@ -197,6 +207,7 @@ public class PlayerController : MonoBehaviour
 
     public void HeighModPerFrame(float val, bool isWater)
     {
+
         HeightModPerFrame = val;
         modIsWater = isWater;
     }
@@ -216,7 +227,7 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce;
+            rb.velocity = Vector2.up * jumpForce * HeightModPerFrame;
 
             //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
         }
@@ -226,7 +237,7 @@ public class PlayerController : MonoBehaviour
             if (jumpTimeCounter > 0)
             {
                 //Debug.Log("Jump counter: " + jumpTimeCounter);
-                rb.velocity = Vector2.up * jumpForce;
+                rb.velocity = Vector2.up * jumpForce * HeightModPerFrame;
                 //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
                 jumpTimeCounter -= Time.deltaTime;
 
@@ -344,7 +355,7 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3Int cell = collision.gameObject.GetComponent<Tilemap>().WorldToCell(new Vector3(hit.point.x, hit.point.y));
                 TileBase tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
-                Debug.Log(tb.name);
+                //Debug.Log(tb.name);
                 if (tb != null && tb.name == "environment_Tiles_16")
                 {
                     collision.gameObject.GetComponent<Tilemap>().SetTile(cell, null);

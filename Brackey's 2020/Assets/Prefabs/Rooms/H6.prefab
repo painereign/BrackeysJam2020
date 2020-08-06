@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HorizontalMoveAdjustMultiple: 0.5
-  PlayerVertHightModPerFrame: -0.02
+  PlayerVertHightModPerFrame: 0.5
   isWater: 1
+  InTrigger: 0
 --- !u!61 &722185689
 BoxCollider2D:
   m_ObjectHideFlags: 0
