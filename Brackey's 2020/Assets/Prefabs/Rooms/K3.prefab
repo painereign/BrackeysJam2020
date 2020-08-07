@@ -63,7 +63,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6068558911983173740
 Transform:
   m_ObjectHideFlags: 0
@@ -12444,7 +12444,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7128787062555721234, guid: 47deee275ebd4344cb63e4e9ec658bcf, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -12549,7 +12549,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2835823085115425827, guid: 8bfcb18fe8a919c44b06af396ae31502, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -12751,7 +12751,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4023444861889751292, guid: ef94932982a8e8e4baa581ba4d42ff54, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8

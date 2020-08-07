@@ -59,4 +59,9 @@ public class TextBoxController : MonoBehaviour
         Active = true;
         TextBoxHolder.SetActive(true);
     }
+
+    public void MapChange()
+    {
+        ResetBox();
+    }
 }

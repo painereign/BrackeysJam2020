@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Explosion
+  - Undefined
   - Ground
   layers:
   - Default
@@ -19,7 +21,7 @@ TagManager:
   - 
   - 
   - Ground
-  - 
+  - Explosion
   - 
   - 
   - 

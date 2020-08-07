@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce520e414a6f1084d8f4ebdf8e3cc818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalMoveAdjustMultiple: 1
-  PlayerVertHightModPerFrame: 0.5
+  HorizontalMoveAdjustMultiple: 0.5
+  PlayerVertHightModPerFrame: 0.02
+  PlayerJumpMod: 0.5
   isWater: 1
   InTrigger: 0
 --- !u!60 &9062441954003722144
@@ -102,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7892040518869592585
 Transform:
   m_ObjectHideFlags: 0
@@ -12516,7 +12517,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 4554036265686141728, guid: 46b6818b6e038124e981d65653b834b6, type: 3}
+      objectReference: {fileID: 6324225735269145497, guid: 81c35ec2ac094954cb57068dc73b25f5, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8

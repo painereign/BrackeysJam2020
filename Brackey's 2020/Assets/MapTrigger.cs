@@ -25,6 +25,12 @@ public class MapTrigger : MonoBehaviour
 
     public GameObjTriggers GOTriggers;
 
+    public bool TextBox;
+    public string Text;
+    bool currentlyTriggered = false;
+
+    float triggeredTime = 8f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +40,12 @@ public class MapTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (currentlyTriggered)
+        {
+            triggeredTime -= Time.deltaTime;
+            if (triggeredTime <= 0)
+                currentlyTriggered = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,6 +68,13 @@ public class MapTrigger : MonoBehaviour
         else
         {
             ApplyAntiChanges();
+        }
+
+        if (TextBox && !currentlyTriggered)
+        {
+            triggeredTime = 7.5f;
+            currentlyTriggered = true;
+            TextBoxController.Instance.NewTextBox(Text, 7.5f);
         }
     }
 

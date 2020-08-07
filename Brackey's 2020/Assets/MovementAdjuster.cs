@@ -9,6 +9,8 @@ public class MovementAdjuster : MonoBehaviour
 
     public float PlayerVertHightModPerFrame = 1f;
 
+    public float PlayerJumpMod = 0.5f;
+
     public bool isWater = false;
 
     public bool InTrigger = false;
@@ -25,7 +27,7 @@ public class MovementAdjuster : MonoBehaviour
         if (!InTrigger)
         {
             PlayerController.Instance.HoriMoveAjust(1f);
-            PlayerController.Instance.HeighModPerFrame(1f, isWater);
+            PlayerController.Instance.HeighModPerFrameRESET(1f, isWater);
         }
         //Debug.Log(InTrigger);
     }
@@ -35,18 +37,18 @@ public class MovementAdjuster : MonoBehaviour
         if (collision.tag == "Player")
         {
             InTrigger = true;
-            if (PlayerVertHightModPerFrame > 1f) 
+            if (!isWater && !GameTriggers.Instance.GameTriggersDict["LegsDowngraded"]) 
                 TextBoxController.Instance.NewTextBox("Hold SHIFT to SPRINT to escape quicksand!", 5f);
             if (isWater)
             {
                 if (!GameTriggers.Instance.GameTriggersDict["ChestDowngraded"])
-                    PlayerController.Instance.HeighModPerFrame(1f, isWater);
+                    PlayerController.Instance.HeighModPerFrame(1f, isWater, PlayerJumpMod);
                 else
-                    PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater);
+                    PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater, PlayerJumpMod);
             }
             else
             {
-                PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater);
+                PlayerController.Instance.HeighModPerFrame(PlayerVertHightModPerFrame, isWater, PlayerJumpMod);
             }
             Debug.Log("colliding!!!!");
             collisionThisFrame = true;
@@ -62,7 +64,11 @@ public class MovementAdjuster : MonoBehaviour
             Debug.Log("NOT colliding!!!!");
             collisionThisFrame = false;
             PlayerController.Instance.HoriMoveAjust(1f);
-            PlayerController.Instance.HeighModPerFrame(1f, isWater);
+            PlayerController.Instance.HeighModPerFrame(1f, isWater, 1f);
+            PlayerController.Instance.rb.gravityScale = 1f;
+            PlayerController.Instance.inMod = false;
+            PlayerController.Instance.modIsWater = false;
+            PlayerController.Instance.PlayerJumpMod = 1f;
         }
     }
 

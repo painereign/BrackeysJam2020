@@ -34,7 +34,7 @@ public class Missile : MonoBehaviour
         if (AliveTime <= 0)
             GameObject.Destroy(this.gameObject);
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("bullet trigger enter");
@@ -42,6 +42,31 @@ public class Missile : MonoBehaviour
         {
             collision.GetComponent<Enemy>().Hit(Damage);
             GameObject.Destroy(this.gameObject);
+        }
+    }*/
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag != "Player")
+        {
+            //Debug.Log("bullet trigger enter");
+            if (collision.GetComponent<Enemy>() != null)
+            {
+                collision.GetComponent<Enemy>().Hit(Damage);
+                GameObject.Destroy(this.gameObject);
+            }
+
+            else if (collision.tag == "Ground")
+            {
+                //check if it is one of the glass tiles
+                //if yes, KILL THEM ALL
+            }
+
+            else if (collision.tag == "Explosion")
+            {
+                collision.gameObject.GetComponent<ExplosionHolder>().NormalMissileHit();
+                //collision.gameObject.SetActive(false);
+            }
         }
     }
 

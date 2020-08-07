@@ -37,16 +37,49 @@ public class SuperMissile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("bullet trigger enter");
-        if (collision.GetComponent<Enemy>() != null)
-        {
-            collision.GetComponent<Enemy>().Hit(Damage);
-            GameObject.Destroy(this.gameObject);
+        if (collision.tag != "Player") {
+            //Debug.Log("bullet trigger enter");
+            if (collision.GetComponent<Enemy>() != null)
+            {
+                collision.GetComponent<Enemy>().Hit(Damage);
+                GameObject.Destroy(this.gameObject);
+            }
+
+            else if (collision.tag == "Ground")
+            {
+                //check if it is one of the glass tiles
+                //if yes, KILL THEM ALL
+            }
+
+            else if (collision.tag == "Explosion")
+            {
+                collision.gameObject.SetActive(false);
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.LogWarning("bullet collision enter");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Exit trigger of " + collision.tag);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("In trigger of " + collision.tag);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("exit collision of " + collision.collider.tag);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("In collision of " + collision.collider.tag);
     }
 }

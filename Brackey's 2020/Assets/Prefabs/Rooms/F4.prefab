@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce520e414a6f1084d8f4ebdf8e3cc818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalMoveAdjustMultiple: 0.5
-  PlayerVertHightModPerFrame: 0.001
+  HorizontalMoveAdjustMultiple: 0.25
+  PlayerVertHightModPerFrame: 0.01
   isWater: 0
+  InTrigger: 0
 --- !u!61 &553736229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0572102, y: -2.950604}
+  m_Offset: {x: -1.05721, y: -3.0217395}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -71,7 +72,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.0529, y: 4.251687}
+  m_Size: {x: 12.0529, y: 4.109416}
   m_EdgeRadius: 0
 --- !u!1 &1729338768540977165
 GameObject:
@@ -13043,7 +13044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025379481764903855, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Name
-      value: MapTeleporterL (1)
+      value: MapTeleporterL
       objectReference: {fileID: 0}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: CurrentMap
@@ -13148,7 +13149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025379481764903855, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Name
-      value: MapTeleporterD (1)
+      value: MapTeleporterD
       objectReference: {fileID: 0}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: CurrentMap
@@ -13157,7 +13158,7 @@ PrefabInstance:
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewMap
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2524034409675263697, guid: a111b6dbfc6b6a64ebac8752ceb0bc98, type: 3}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: NewPos.y
       value: 8
@@ -13168,11 +13169,11 @@ PrefabInstance:
       objectReference: {fileID: 1729338768985678707}
     - target: {fileID: 4716804459853276865, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Offset.y
-      value: 3.4104886
+      value: 2.8666186
       objectReference: {fileID: 0}
     - target: {fileID: 4716804459853276865, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Size.y
-      value: 4.389783
+      value: 3.302043
       objectReference: {fileID: 0}
     - target: {fileID: 4716804459853276865, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Offset.x
@@ -13253,7 +13254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025379481764903855, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Name
-      value: MapTeleporterR (1)
+      value: MapTeleporterR
       objectReference: {fileID: 0}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: CurrentMap
@@ -13350,7 +13351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4025379481764903855, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: m_Name
-      value: MapTeleporterU (1)
+      value: MapTeleporterU
       objectReference: {fileID: 0}
     - target: {fileID: 4035322388104245176, guid: 658070653f35feb418af69c733d89165, type: 3}
       propertyPath: CurrentMap

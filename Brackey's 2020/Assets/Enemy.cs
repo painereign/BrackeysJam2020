@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    if (ViewingTrigger.CurrentlyTriggered)
+                    if (ViewingTrigger.CurrentlyTriggered && !GameTriggers.Instance.GameTriggersDict["HelmetDowngraded"])
                     {
                         DropDownTime -= Time.deltaTime;
                         if (DropDownTime <= 0)

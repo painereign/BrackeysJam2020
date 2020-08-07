@@ -16,8 +16,8 @@ public class MapTeleporter : MonoBehaviour
 
     private float NewUpY = -4.45f;
     private float NewDownY = 4.5f;
-    private float NewLeftX = 7.5f;
-    private float NewRightX = -7.2f;
+    private float NewLeftX = 6.9f;
+    private float NewRightX = -6.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +55,7 @@ public class MapTeleporter : MonoBehaviour
             GameObject go = GameObject.Instantiate(NewMap);
             go.SetActive(false);
             go.SetActive(true);
+            TextBoxController.Instance.MapChange();
             PlayerController.Instance.MapChange();
             //NewMap.SetActive(true);
             MapManager.Instance.CurrentTileMap = NewMap.GetComponentInChildren<MapTeleporter>().PlatformLayer;

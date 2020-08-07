@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
     private float heldDownTime = 0f;
     public float timeBetweenHeldShots = 0.5f;
 
+    private float MISSILEheldDownTime = 0f;
+    public float MISSLEtimeBetweenHeldShots = 1.5f;
+
     public float SprintMultiplier = 1.5f;
 
     private float sprintVal = 1f;
@@ -64,11 +67,15 @@ public class PlayerController : MonoBehaviour
 
     float HeightModPerFrame = 1f;
 
-    bool modIsWater = false;
+    public bool modIsWater = false;
 
     bool isfalling = false;
 
+    public bool inMod = false;
+
     public float SandWaterSprintHeightIncrease = 0.1f;
+
+    public float PlayerJumpMod = 1f;
 
     public List<GameObject> ToBeDestroyedOnMapChange = new List<GameObject>();
 
@@ -101,21 +108,43 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(moveInput * speed * sprintVal * horMoveAdjustMult, rb.velocity.y);
 
-        if (HeightModPerFrame != 1f)
+        if (HeightModPerFrame != 1f || horMoveAdjustMult != 1 || inMod)
         {
             if (!modIsWater)
             {
                 IsGrounded.OnGround = true;
             }
-            /*
             rb.gravityScale = 0f;
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
-            if (sprintVal == 1f)
-                transform.position = new Vector3(transform.position.x, transform.position.y - HeightModPerFrame);
+            //rb.velocity = new Vector2(rb.velocity.x, 0f);
+
+            if (modIsWater)
+            {
+                if (!IsGrounded.CollidingWithGround)
+                {
+                    if (GameTriggers.Instance.GameTriggersDict["ChestDowngraded"])
+                    {
+                        //rb.gravityScale = -0.5f;
+                        transform.position = new Vector3(transform.position.x, transform.position.y - HeightModPerFrame);
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(transform.position.x, transform.position.y + SandWaterSprintHeightIncrease);
+                    }
+                }
+            }
+
             else
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + SandWaterSprintHeightIncrease);
-            }*/
+                if (sprintVal == 1f && !IsGrounded.CollidingWithGround)
+                {
+
+                    transform.position = new Vector3(transform.position.x, transform.position.y - HeightModPerFrame);
+                }
+                else
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y + SandWaterSprintHeightIncrease);
+                }
+            }
         }
         else
         {
@@ -137,20 +166,13 @@ public class PlayerController : MonoBehaviour
         }
 
         CheckShoot();
+        
 
         if (IsGrounded.OnGround && ! lastFrameOnGround)
         {
             Anim.SetTrigger("Squish");
         }
-
-        if (lastPos.y > (transform.position.y + FallThresh))
-        {
-            Falling = true;
-        }
-        else
-        {
-            Falling = false;
-        }
+        //Debug.Log(Falling.ToString() + ", last: " + lastPos.y.ToString() + " curr: " + transform.position.y);
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -161,13 +183,28 @@ public class PlayerController : MonoBehaviour
 
 
 
-        lastPos = transform.position;
         lastFrameOnGround = IsGrounded.OnGround;
 
         LastVelocityChange = rb.velocity;
 
+        //Debug.Log("Player xPos: " + transform.position.x);
+
         CheckImmune();
         //Debug.Log("ENDING VEL:" + rb.velocity.x);
+    }
+
+    private void FixedUpdate()
+    {
+
+        if (lastPos.y > (transform.position.y + FallThresh))
+        {
+            Falling = true;
+        }
+        else
+        {
+            Falling = false;
+        }
+        lastPos = transform.position;
     }
 
     private void LateUpdate()
@@ -190,7 +227,8 @@ public class PlayerController : MonoBehaviour
 
     public void CheckSprint()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+
+        if (!GameTriggers.Instance.GameTriggersDict["LegsDowngraded"] &&  Input.GetKey(KeyCode.LeftShift))
         {
             sprintVal = SprintMultiplier;
         }
@@ -205,9 +243,16 @@ public class PlayerController : MonoBehaviour
         horMoveAdjustMult = val;
     }
 
-    public void HeighModPerFrame(float val, bool isWater)
+    public void HeighModPerFrame(float val, bool isWater, float jump)
     {
+        inMod = true;
+        HeightModPerFrame = val;
+        modIsWater = isWater;
+        PlayerJumpMod = jump;
+    }
 
+    public void HeighModPerFrameRESET(float val, bool isWater)
+    {
         HeightModPerFrame = val;
         modIsWater = isWater;
     }
@@ -227,7 +272,7 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
-            rb.velocity = Vector2.up * jumpForce * HeightModPerFrame;
+            rb.velocity = Vector2.up * jumpForce * PlayerJumpMod;
 
             //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
         }
@@ -237,7 +282,7 @@ public class PlayerController : MonoBehaviour
             if (jumpTimeCounter > 0)
             {
                 //Debug.Log("Jump counter: " + jumpTimeCounter);
-                rb.velocity = Vector2.up * jumpForce * HeightModPerFrame;
+                rb.velocity = Vector2.up * jumpForce * PlayerJumpMod;
                 //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
                 jumpTimeCounter -= Time.deltaTime;
 
@@ -265,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckShoot()
     {
+        MISSILEheldDownTime -= Time.deltaTime;
         if (Input.GetMouseButton(0))
         {
             heldDownTime -= Time.deltaTime;
@@ -274,9 +320,30 @@ public class PlayerController : MonoBehaviour
                 heldDownTime = timeBetweenHeldShots;
             }
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            heldDownTime = 0;
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            MISSILEheldDownTime -= Time.deltaTime;
+            if (MISSILEheldDownTime <= 0)
+            {
+                if (!GameTriggers.Instance.GameTriggersDict["MissleDowngraded"])
+                {
+                    ShootSuperMissile();
+                }
+                else
+                {
+                    ShootMissile();
+                }
+                MISSILEheldDownTime = MISSLEtimeBetweenHeldShots;
+            }
+        }
         else
         {
-            heldDownTime = 0f;
+            MISSILEheldDownTime = 0f;
         }
 
         if (Input.GetMouseButton(1))
@@ -313,7 +380,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShootMissile()
     {
-        GameObject go = GameObject.Instantiate(SuperMissile, this.transform.position, new Quaternion(), GameController.Instance.TmpObjHolder.transform);
+        GameObject go = GameObject.Instantiate(Missile, this.transform.position, new Quaternion(), GameController.Instance.TmpObjHolder.transform);
         if (facingRight)
         {
             go.GetComponent<Missile>().FacingRight = true;
@@ -375,7 +442,7 @@ public class PlayerController : MonoBehaviour
         foreach (ContactPoint2D hit in collision.contacts)
         {
 
-            if (isJumping && !Falling && !IsGrounded.OnGround)
+            if (isJumping && !Falling && !IsGrounded.OnGround && collision.gameObject.GetComponent<Tilemap>() != null)
             {
                 Vector3Int cell = collision.gameObject.GetComponent<Tilemap>().WorldToCell(new Vector3(hit.point.x, hit.point.y));
                 TileBase tb = collision.gameObject.GetComponent<Tilemap>().GetTile(cell);
@@ -395,9 +462,10 @@ public class PlayerController : MonoBehaviour
     private void ResetPlayerAdjusters()
     {
         horMoveAdjustMult = 1f;
-
+        PlayerJumpMod = 1f;
         HeightModPerFrame = 1f;
-}
+        inMod = false;
+    }
 }
 
 
