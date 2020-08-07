@@ -9,19 +9,25 @@ public class MapManager : MonoBehaviour
 
     public Tilemap CurrentTileMap;
 
-    public static MapManager Instance { get; set; }
+    public static MapManager Instance { get; private set; }
     public List<GameObject> AllMaps;
 
     public List<GameObject> MapPrefabs;
 
     private List<List<GameObject>> SortedMaps = new List<List<GameObject>>();
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
         SortMaps();
         SetTeleports();
 
